@@ -1,1 +1,1 @@
-# DSI_Capstone
+# Galvanize Data Science Capstone Project
