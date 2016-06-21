@@ -7,7 +7,7 @@ class MyStreamListener(tweepy.StreamListener):
     "Listener for streaming data"
 
     def __init__(self):
-        self.outfile = "../data_dumps/test.json"
+        self.outfile = "../data_dumps/test.json" # Put streaming tweets in this file
 
     def on_status(self, status):
         print(status.text)
@@ -28,7 +28,7 @@ class MyStreamListener(tweepy.StreamListener):
         return True
 
 if __name__ == '__main__':
-    # Get OAuth Authentication
+    # Get OAuth Authentication from keys.txt file which is included in .gitignore
     keys = defaultdict()
     with open('twitter_keys.txt') as f:
         for line in f:
@@ -39,13 +39,16 @@ if __name__ == '__main__':
 
     api = tweepy.API(auth)
 
+    # Get Tweets on my home page
     # public_tweets = api.home_timeline()
     # for tweet in public_tweets:
     #     print tweet._json
 
+    # Stream Tweets with filter
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
     myStream.filter(track=['boulder'])
 
+    # Cursor example
     # for tweet in tweepy.Cursor(api.user_timeline).items():
     #     print tweet._json
